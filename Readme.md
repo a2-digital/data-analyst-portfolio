@@ -62,7 +62,7 @@ Este portafolio web presenta mi experiencia, habilidades y proyectos como Analis
 
 ### Opción 1: Ver Online (Recomendado)
 
-Simplemente visita: [Tu URL de GitHub Pages aquí](https://a2-digital.github.io/portafolio-analista-datos/)
+Simplemente visita: [Tu URL de GitHub Pages aquí](https://a2-digital.github.io/data-analyst-portfolio/)
 
 ### Opción 2: Clonar y Ejecutar Localmente
 
