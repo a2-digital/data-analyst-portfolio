@@ -6,7 +6,7 @@
 
 > **Portafolio profesional de Analista de Datos Junior** especializado en SQL, Python, Power BI y Excel.
 
-[🌐 Ver Portafolio en Vivo](https://a2-digital.github.io/portafolio-analista-datos/)
+[🌐 Ver Portafolio en Vivo](https://a2-digital.github.io/data-analyst-portfolio/) 
 
 ---
 
