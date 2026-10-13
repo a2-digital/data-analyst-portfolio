@@ -1,17 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YogAmarte | Andrés Aranguren</title>
-    <link rel="stylesheet" href="../assets/css/variable.css" />
-    <link rel="stylesheet" href="../assets/css/case-study.css" />
+
+    <!-- Estilos base e íconos -->
+    <link rel="stylesheet" href="../assets/css/variable.css">
+    <link rel="stylesheet" href="../assets/css/case-study.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+    <link rel="shortcut icon" href="../favicon.png">
   </head>
   <body>
+    <!-- NAV SUPERIOR -->
     <nav class="navbar">
       <div class="container nav-container">
         <div class="logo">
-          <img src="../assets/images/logo.png" alt="Logo" />
+          <img src="../assets/images/logo.png" alt="Logo A2 Digital">
         </div>
 
         <a href="../index.html#projects" class="back-link">
@@ -20,18 +28,38 @@
       </div>
     </nav>
 
+    <!-- HEADER / HERO CON CTAs -->
     <header class="case-header">
       <div class="container">
-        <span class="case-tag">Desarrollo Web · Cliente · Multiidioma</span>
+        <span class="case-tag">Desarrollo Web · Cliente Real · Multiidioma</span>
         <h1>
           YogAmarte — Sitio web para un espacio de yoga y terapias holísticas
         </h1>
         <p class="case-subtitle">
           Cliente: Paola Bergmann · HTML, CSS, JavaScript
         </p>
+
+        <!-- Botones Principales de Acción Arriba -->
+        <div class="header-actions">
+          <a
+            href="https://yogamarte.com/"
+            target="_blank"
+            class="btn-primary"
+          >
+            🌐 Ver Página Web en Vivo
+          </a>
+          <a
+            href="https://github.com/a2-digital/YogAmarte.git"
+            target="_blank"
+            class="btn-secondary"
+          >
+            <i class="fab fa-github"></i> Ver en GitHub
+          </a>
+        </div>
       </div>
     </header>
 
+    <!-- CONTENIDO PRINCIPAL (CARDS) -->
     <main class="container case-content">
       <section class="case-section">
         <h2>El cliente y el proyecto</h2>
@@ -45,133 +73,142 @@
       </section>
 
       <section class="case-section">
-        <h2>Arquitectura</h2>
+        <h2>Arquitectura de software</h2>
         <p>
           El sitio usa una estructura modular en HTML/CSS/JS puro: el navbar y
           el footer se cargan dinámicamente desde componentes compartidos
-          (<code>load-navbar.js</code>,
-          <code>load-footer.js</code>), y los estilos comparten variables CSS
-          centralizadas (<code>variables.css</code>) para mantener consistencia
-          visual entre páginas sin duplicar código.
+          (<code>load-navbar.js</code>, <code>load-footer.js</code>), y los estilos
+          comparten variables CSS centralizadas (<code>variables.css</code>) para
+          mantener consistencia visual entre páginas sin duplicar código.
         </p>
         <p>
           Incluye un sistema de traducción global (<code>traduccion.js</code>)
-          con archivos
-          <code>es.json</code> y <code>de.json</code>, e integración con
-          Calendly para que los clientes agenden sesiones directamente desde la
-          página de reservas.
+          con archivos <code>es.json</code> y <code>de.json</code>, e integración
+          con Calendly para que los clientes agenden sesiones directamente desde
+          la página de reservas.
         </p>
+      </section>
+
+      <section class="case-section">
+        <h2>Stack técnico</h2>
+        <div class="tech-stack">
+          <span class="case-tag">HTML5</span>
+          <span class="case-tag">CSS3 Modular</span>
+          <span class="case-tag">JavaScript Vanilla</span>
+          <span class="case-tag">Sistema i18n (Multiidioma)</span>
+          <span class="case-tag">Integración Calendly</span>
+        </div>
       </section>
 
       <section class="case-section">
         <h2>Lo más particular: el carrusel de testimonios</h2>
         <ul class="findings-list">
           <li>
-            <strong>Testimonios basados en imágenes, no en texto.</strong> Cada
-            testimonio es un recorte de imagen (formato ~340×400px), no una cita
-            escrita, mostrada dentro de un marco con forma orgánica tipo "blob"
-            que combina con la identidad visual del sitio.
+            <strong>Testimonios basados en imágenes, no en texto:</strong> Cada
+            testimonio es un recorte de imagen (formato ~340×400px) mostrado
+            dentro de un marco con forma orgánica tipo "blob" que combina con la
+            identidad visual del sitio.
           </li>
           <li>
-            <strong>Filtro por idioma con expansión automática.</strong> El
+            <strong>Filtro por idioma con expansión automática:</strong> El
             carrusel filtra los testimonios por idioma (Español/Deutsch) y se
             expande automáticamente según cuántos testimonios existan en cada
             uno, sin necesidad de ajustar el layout a mano.
           </li>
           <li>
-            <strong>Sistema data-driven.</strong> Agregar un testimonio nuevo
-            solo requiere añadir un objeto a <code>testimonios-data.js</code> —
-            no hay que tocar HTML ni CSS para sumar contenido nuevo, lo que
-            facilita que la clienta pueda pedir actualizaciones simples sin
-            depender de un desarrollador cada vez.
+            <strong>Sistema data-driven:</strong> Agregar un testimonio nuevo
+            solo requiere añadir un objeto a <code>testimonios-data.js</code>,
+            evitando modificar HTML o CSS para sumar contenido nuevo.
           </li>
         </ul>
       </section>
 
       <section class="case-section">
-        <h2>Páginas principales</h2>
+        <h2>Páginas principales del sitio</h2>
         <ul class="findings-list">
           <li>
-            <strong>Inicio</strong> — presentación de servicios y banner
-            principal.
+            <strong>Inicio:</strong> Presentación de servicios y banner principal.
           </li>
           <li>
-            <strong>Sobre mí</strong> — biografía y trayectoria de la
-            instructora.
+            <strong>Sobre mí:</strong> Biografía y trayectoria de la instructora.
           </li>
           <li>
-            <strong>Contacto</strong> — formulario y medios de contacto directo.
+            <strong>Contacto:</strong> Formulario y medios de contacto directo.
           </li>
           <li>
-            <strong>Reserva</strong> — enlace a Calendly para agendar clases.
+            <strong>Reserva:</strong> Enlace e integración a Calendly para agendar clases.
           </li>
           <li>
-            <strong>Testimonios</strong> — el carrusel data-driven descrito
-            arriba.
+            <strong>Testimonios:</strong> Carrusel dinámico basado en datos.
           </li>
         </ul>
       </section>
 
       <section class="case-section">
-        <h2>Vista del sitio</h2>
-        <img
-          src="../assets/images/projects/web-servicios.png"
-          alt="Sitio web YogAmarte"
-          class="case-image"
-        />
-        <img
-          src="../assets/images/projects/web-servicios-testimonios.png"
-          alt="Sitio web YogAmarte"
-          class="case-image"
-        />
-      </section>
-
-      <section class="case-section case-links">
-        <div class="case-actions">
-          <div class="btn-content">
-            <a
-              href="https://github.com/a2-digital/YogAmarte.git"
-              target="_blank"
-              class="github-btn"
+        <h2>Vistas de la Plataforma</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img
+              src="../assets/images/projects/web-servicios.png"
+              alt="Vista Principal YogAmarte"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M8 0C3.58 0 0 3.58 0 8a8.013 8.013 0 005.47 7.59c.4.07.55-.17.55-.38
-                  0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
-                  -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21
-                  1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95
-                  0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12
-                  0 0 .67-.21 2.2.82a7.59 7.59 0 014 0c1.53-1.04
-                  2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
-                  1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54
-                  1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013
-                  8.013 0 0016 8c0-4.42-3.58-8-8-8z"
-                />
-              </svg>
+            <span class="img-caption">Vista Principal y Servicios</span>
+          </div>
 
-              <span>Ver proyecto en GitHub</span>
-            </a>
-
-            <a href="https://yogamarte.com/" target="_blank" class="github-btn">
-              <span>Ver Pagina Web</span>
-            </a>
+          <div class="gallery-item">
+            <img
+              src="../assets/images/projects/web-servicios-testimonios.png"
+              alt="Sección de Testimonios YogAmarte"
+            >
+            <span class="img-caption">Carrusel de Testimonios Dinámico</span>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="case-footer">
-      <div class="container text-center">
-        <a href="../index.html#projects" class="btn-back">
-          ← Volver al portafolio
-        </a>
+      <div class="container footer-nav-container">
+        <!-- Botón principal para volver -->
+
+
+        <div class="footer-projects-carousel">
+          <h4>Explora otros proyectos</h4>
+          <div class="footer-carousel-track">
+
+            <a href="consumo-energetico.html" class="footer-mini-card">
+              <img src="../assets/images/projects/energetico.png" alt="Consumo Energético">
+              <span>Consumo Energético</span>
+            </a>
+
+            <a href="riesgo-crediticio.html" class="footer-mini-card">
+              <img src="../assets/images/projects/riesgo-dashboard.png" alt="Riesgo Crediticio">
+              <span>Riesgo Crediticio</span>
+            </a>
+
+            <a href="mogus.html" class="footer-mini-card">
+              <img src="../assets/images/projects/web_mogus.png" alt="MOGUS">
+              <span>MOGUS (Tesis)</span>
+            </a>
+
+            <a href="yogamarte.html" class="footer-mini-card">
+              <img src="../assets/images/projects/web-servicios.png" alt="YogAmarte">
+              <span>YogAmarte</span>
+            </a>
+
+            <a href="ventas-ecommerce.html" class="footer-mini-card">
+              <img src="../assets/images/projects/ventas-ecommerce.png" alt="E-commerce">
+              <span>E-commerce UK</span>
+            </a>
+
+          </div>
+        </div>
+
+        <div class="footer-bottom-text">
+          <p>&copy; 2026 Andrés Aranguren. Todos los derechos reservados.</p>
+        </div>
       </div>
     </footer>
+
+    <script src="../assets/js/main.js"></script>
   </body>
 </html>

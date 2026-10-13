@@ -1,87 +1,84 @@
-// ===============================
-// VARIABLES GLOBALES
-// ===============================
-const navbar = document.getElementById("navbar");
+// =====================================================
+// main.js — se carga en el index Y en las páginas de casos de estudio.
+// Cada bloque comprueba que sus elementos existan antes de usarlos,
+// así un mismo archivo sirve para todo el sitio sin errores.
+// =====================================================
+
+const navbar =
+  document.getElementById("navbar") || document.querySelector(".navbar");
 const navMenu = document.getElementById("nav-menu");
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.querySelectorAll(".nav-link");
 const scrollTopBtn = document.getElementById("scroll-top");
 const contactForm = document.getElementById("contact-form");
 
-// ===============================
-// NAVBAR - Efecto al hacer scroll suave
-// ===============================
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 100) {
-    navbar.classList.add("scrolled");
-  } else {
-    navbar.classList.remove("scrolled");
-  }
+// Navbar Soft + botón scroll-to-top
+window.addEventListener(
+  "scroll",
+  () => {
+    if (navbar) {
+      navbar.classList.toggle("scrolled", window.scrollY > 100);
+    }
 
-  // Mostrar/ocultar botón scroll-to-top
-  if (window.scrollY > 300) {
-    scrollTopBtn.classList.add("active");
-  } else {
-    scrollTopBtn.classList.remove("active");
-  }
-});
+    if (scrollTopBtn) {
+      scrollTopBtn.classList.toggle("active", window.scrollY > 300);
+    }
+  },
+  { passive: true },
+);
 
-// ===============================
-// MOBILE MENU - Hamburger
-// ===============================
-hamburger.addEventListener("click", () => {
-  navMenu.classList.toggle("active");
-  hamburger.classList.toggle("active");
-});
+// Hamburger
+if (hamburger && navMenu) {
+  hamburger.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+    hamburger.classList.toggle("active");
+  });
+}
 
-// Cerrar menú al hacer click en un enlace
 navLinks.forEach((link) => {
   link.addEventListener("click", () => {
-    navMenu.classList.remove("active");
-    hamburger.classList.remove("active");
+    if (navMenu) navMenu.classList.remove("active");
+    if (hamburger) hamburger.classList.remove("active");
   });
 });
 
-// ===============================
-// ACTIVE LINK - Scroll Spy es la sección actual
-// ===============================
+// ACTIVE LINK (solo si la página tiene secciones y enlaces de navegación)
 const sections = document.querySelectorAll("section");
 
-window.addEventListener("scroll", () => {
-  let current = "";
+if (navLinks.length && sections.length) {
+  window.addEventListener("scroll", () => {
+    let current = "";
 
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
 
-    if (window.scrollY >= sectionTop - 200) {
-      current = section.getAttribute("id");
-    }
+      if (window.scrollY >= sectionTop - 200) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href").slice(1) === current) {
+        link.classList.add("active");
+      }
+    });
   });
+}
 
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-    if (link.getAttribute("href").slice(1) === current) {
-      link.classList.add("active");
-    }
-  });
-});
-
-// ===============================
-// TYPING EFFECT - Hero Section unn efecto de escritura
-// ===============================
+// Typing Effect (solo en el index)
 const typingText = document.querySelector(".typing-text");
 const phrases = [
-  "Analista de Datos Junior",
   "Business Intelligence",
+  "Data Analytics",
+  "Ingeniería de Sistemas",
   "SQL | Python | Power BI",
-  "Transformando datos en insights",
 ];
 
 let phraseIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
-let typingSpeed = 100;
+let typingSpeed = 80;
 
 function typeEffect() {
   const currentPhrase = phrases[phraseIndex];
@@ -90,40 +87,43 @@ function typeEffect() {
     // Borrando
     typingText.textContent = currentPhrase.substring(0, charIndex - 1);
     charIndex--;
-    typingSpeed = 50;
+    typingSpeed = 40; // Más rápido para borrado
   } else {
     // Escribiendo
     typingText.textContent = currentPhrase.substring(0, charIndex + 1);
     charIndex++;
-    typingSpeed = 100;
+    typingSpeed = 80; // Velocidad optimizada para escritura
   }
 
   // Cuando termina de escribir la frase
   if (!isDeleting && charIndex === currentPhrase.length) {
     isDeleting = true;
-    typingSpeed = 2000; // Pausa antes de borrar
+    typingSpeed = 1500; // Pausa antes de borrar
   }
 
   // Cuando termina de borrar
   if (isDeleting && charIndex === 0) {
     isDeleting = false;
     phraseIndex = (phraseIndex + 1) % phrases.length;
-    typingSpeed = 500; // Pausa antes de escribir siguiente frase
+    typingSpeed = 300; // Pausa antes de escribir la siguiente frase
   }
 
   setTimeout(typeEffect, typingSpeed);
 }
 
 // Iniciar efecto typing cuando carga la página
-document.addEventListener("DOMContentLoaded", typeEffect);
+if (typingText) {
+  document.addEventListener("DOMContentLoaded", typeEffect);
+}
 
-// ===============================
-// SMOOTH SCROLL - Scroll Suave para enlaces internos
-// ===============================
+// Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
+    const id = this.getAttribute("href");
+    if (id === "#") return; // enlace vacío: no hay a dónde ir
+
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
+    const target = document.querySelector(id);
 
     if (target) {
       const offsetTop = target.offsetTop - 70; // 70px por el navbar fijo
@@ -136,19 +136,17 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// ===============================
-// SCROLL TO TOP - Botón para subir al inicio
-// ===============================
-scrollTopBtn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
+// SCROLL TO TOP
+if (scrollTopBtn) {
+  scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   });
-});
+}
 
-// ===============================
-// SCROLL REVEAL ANIMATIONS - Animaciones al hacer scroll
-// ===============================
+// SCROLL REVEAL ANIMATIONS
 const observerOptions = {
   threshold: 0.1,
   rootMargin: "0px 0px -50px 0px",
@@ -172,69 +170,75 @@ animateElements.forEach((el) => {
   observer.observe(el);
 });
 
-document.querySelector(".email-link").addEventListener("click", (e) => {
-  e.preventDefault();
+// Enlace de correo con opciones (solo en el index)
+const emailLink = document.querySelector(".email-link");
 
-  const email = "andresdal090@gmail.com";
+if (emailLink) {
+  emailLink.addEventListener("click", (e) => {
+    e.preventDefault();
 
-  // Mostrar modal con opciones
-  const userChoice = confirm(
-    "¿Cómo prefieres contactarme?\n\n" +
-      "Aceptar = Se abrirá Gmail en navegador\n" +
-      "Cancelar = Usará tu cliente de email predefiniodo (Outlook, etc.)",
-  );
+    const email = "andresdal090@gmail.com";
 
-  if (userChoice) {
-    // Abrir Gmail web
-    window.open(
-      // https://mail.google.com/mail/?view=cm&fs=1&to=andresdal090@gmail.com&su=Contacto%20desde%20portafolio&body=Codial%20Saludo
-      `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=Contacto%20desde%20portafolio&body=Cordial%20Saludo`,
-      "_blank",
+    // Mostrar modal con opciones
+    const userChoice = confirm(
+      "¿Cómo prefieres contactarme?\n\n" +
+        "Aceptar = Se abrirá Gmail en navegador\n" +
+        "Cancelar = Usará tu cliente de email predeterminado (Outlook, etc.)",
     );
-  } else {
-    // Usar mailto (Outlook/cliente predeterminado)
-    window.location.href = `mailto:${email}`;
-  }
-});
 
-// ===============================
-// FORM HANDLING CON EMAILJS
-// ===============================
-contactForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  const submitBtn = contactForm.querySelector('button[type="submit"]');
-  const originalText = submitBtn.textContent;
-  submitBtn.textContent = "Enviando...";
-  submitBtn.disabled = true;
-
-  const templateParams = {
-    from_name: contactForm.name.value,
-    from_email: contactForm.email.value,
-    subject: contactForm.subject.value || "Sin asunto",
-    message: contactForm.message.value,
-  };
-
-  emailjs
-    .send("service_portafolio", "template_fabze5h", templateParams)
-    .then((response) => {
-      console.log("✅ Éxito:", response);
-      showNotification("✅ ¡Mensaje enviado con éxito!", "success");
-      contactForm.reset();
-    })
-    .catch((error) => {
-      console.error("❌ Error completo:", error);
-      showNotification(
-        `❌ Error: ${error.text || "Intenta de nuevo"}`,
-        "error",
+    if (userChoice) {
+      // Abrir Gmail web
+      window.open(
+        `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=Contacto%20desde%20portafolio&body=Cordial%20Saludo`,
+        "_blank",
       );
-    })
-    .finally(() => {
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-    });
-});
+    } else {
+      // Usar mailto (Outlook/cliente predeterminado)
+      window.location.href = `mailto:${email}`;
+    }
+  });
+}
+
+// ===============================
+// FORM HANDLING CON EMAILJS (solo en el index)
+// ===============================
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Enviando...";
+    submitBtn.disabled = true;
+
+    const templateParams = {
+      from_name: contactForm.name.value,
+      from_email: contactForm.email.value,
+      subject: contactForm.subject.value || "Sin asunto",
+      message: contactForm.message.value,
+    };
+
+    emailjs
+      .send("service_portafolio", "template_fabze5h", templateParams)
+      .then((response) => {
+        console.log("✅ Éxito:", response);
+        showNotification("✅ ¡Mensaje enviado con éxito!", "success");
+        contactForm.reset();
+      })
+      .catch((error) => {
+        console.error("❌ Error completo:", error);
+        showNotification(
+          `❌ Error: ${error.text || "Intenta de nuevo"}`,
+          "error",
+        );
+      })
+      .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      });
+  });
+}
 
 // ===============================
 // NOTIFICATION SYSTEM
@@ -250,7 +254,7 @@ function showNotification(message, type = "success") {
         position: fixed;
         top: 100px;
         right: 20px;
-        background: ${type === "success" ? "#A52A2A" : "#8B1A1A"};
+        background: ${type === "success" ? "#e50914" : "#c4070f"};
         color: white;
         padding: 15px 25px;
         border-radius: 5px;
@@ -283,7 +287,7 @@ style.textContent = `
             opacity: 1;
         }
     }
-    
+
     @keyframes slideOut {
         from {
             transform: translateX(0);
@@ -294,7 +298,7 @@ style.textContent = `
             opacity: 0;
         }
     }
-    
+
     .fade-in {
         animation: fadeInUp 0.8s ease both;
     }
@@ -302,10 +306,13 @@ style.textContent = `
 document.head.appendChild(style);
 
 // ===============================
-// PARTICLES EFFECT (Opcional)
+// PARTÍCULAS DEL HERO (solo en el index)
 // ===============================
-// Efecto de partículas sutiles en el hero
+const hero = document.querySelector(".hero");
+
 function createParticle() {
+  if (!hero || document.hidden) return;
+
   const particle = document.createElement("div");
   particle.className = "particle";
 
@@ -317,7 +324,7 @@ function createParticle() {
         position: absolute;
         width: ${size}px;
         height: ${size}px;
-        background: rgba(165, 42, 42, 0.5);
+        background: rgba(229, 9, 20, 0.5);
         border-radius: 50%;
         left: ${posX}px;
         top: 100%;
@@ -325,11 +332,50 @@ function createParticle() {
         animation: floatUp ${duration}s linear;
     `;
 
-  document.querySelector(".hero").appendChild(particle);
+  hero.appendChild(particle);
 
   setTimeout(() => {
     particle.remove();
   }, duration * 1000);
+}
+
+// Función para copiar correo con notificación emergente (Toast)
+const copyEmailBtn = document.getElementById("copyEmailBtn");
+
+if (copyEmailBtn) {
+  copyEmailBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const email = "andresdal090@gmail.com";
+
+    navigator.clipboard
+      .writeText(email)
+      .then(() => {
+        showToast("¡Correo copiado al portapapeles!");
+      })
+      .catch((err) => {
+        console.error("Error al copiar: ", err);
+      });
+  });
+}
+
+function showToast(message) {
+  // Eliminar toast anterior si existe
+  const existingToast = document.querySelector(".toast-notification");
+  if (existingToast) existingToast.remove();
+
+  // Crear elemento de notificación
+  const toast = document.createElement("div");
+  toast.className = "toast-notification";
+  toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
+
+  document.body.appendChild(toast);
+
+  // Animación de entrada y salida
+  setTimeout(() => toast.classList.add("show"), 10);
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
 }
 
 // Agregar animación de partículas
@@ -344,27 +390,22 @@ particleStyle.textContent = `
 `;
 document.head.appendChild(particleStyle);
 
-// Crear partículas cada cierto tiempo (opcional, comentado por defecto)
-// setInterval(createParticle, 300);
-
-// ===============================
-// PERFORMANCE - Lazy Loading Images
-// ===============================
-if ("loading" in HTMLImageElement.prototype) {
-  const images = document.querySelectorAll('img[loading="lazy"]');
-  images.forEach((img) => {
-    img.src = img.dataset.src;
-  });
-} else {
-  // Fallback para navegadores que no soportan lazy loading
-  const script = document.createElement("script");
-  script.src =
-    "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js";
-  document.body.appendChild(script);
+// Crear partículas cada cierto tiempo (solo si existe el hero)
+if (hero) {
+  setInterval(createParticle, 300);
 }
 
 // ===============================
-// COPY EMAIL TO CLIPBOARD - CORREGIDO
+// PERFORMANCE - Imágenes con data-src
+// ===============================
+// Los navegadores modernos ya cargan en diferido con loading="lazy".
+// Este bloque solo completa el src de las imágenes que usan data-src.
+document.querySelectorAll("img[data-src]").forEach((img) => {
+  img.src = img.dataset.src;
+});
+
+// ===============================
+// COPY EMAIL TO CLIPBOARD
 // ===============================
 const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
 emailLinks.forEach((link) => {
@@ -386,12 +427,9 @@ emailLinks.forEach((link) => {
   });
 });
 
-// ===============================
-// Mesjae Consola
-// ===============================
 console.log(
   "%c¡Hola! 👋",
-  "color: #A52A2A; font-size: 20px; font-weight: bold;",
+  "color: #e50914; font-size: 20px; font-weight: bold;",
 );
 console.log(
   "%c¿Interesado en mi código? Revisa mi GitHub: https://github.com/a2-digital",
@@ -403,7 +441,7 @@ window.addEventListener("load", () => {
 });
 
 // ===============================
-// Carrusel de Proyectos
+// CARRUSEL DE PROYECTOS (solo en el index)
 // ===============================
 const projectsCarousel = document.getElementById("projectsCarousel");
 const carouselPrev = document.getElementById("carouselPrev");
@@ -415,8 +453,8 @@ if (projectsCarousel && carouselPrev && carouselNext && carouselDots) {
 
   const cardStep = () => {
     if (!cards.length) return 300;
-    const style = getComputedStyle(projectsCarousel);
-    const gap = parseInt(style.columnGap || style.gap || "24");
+    const carouselStyle = getComputedStyle(projectsCarousel);
+    const gap = parseInt(carouselStyle.columnGap || carouselStyle.gap || "24");
     return cards[0].offsetWidth + gap;
   };
 
@@ -455,3 +493,17 @@ if (projectsCarousel && carouselPrev && carouselNext && carouselDots) {
     projectsCarousel.scrollBy({ left: cardStep(), behavior: "smooth" });
   });
 }
+
+// ===============================
+// CASOS DE ESTUDIO: marcar el proyecto actual en el footer
+// ===============================
+const limpiarRuta = (ruta) =>
+  ruta.replace(/\/$/, "").split("/").pop().replace(".html", "");
+
+const paginaActual = limpiarRuta(location.pathname);
+
+document.querySelectorAll(".footer-mini-card").forEach((card) => {
+  if (limpiarRuta(card.getAttribute("href")) === paginaActual) {
+    card.setAttribute("aria-current", "page");
+  }
+});
