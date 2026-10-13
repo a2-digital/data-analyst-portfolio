@@ -1,18 +1,10 @@
-// =====================================================
-// main.js — se carga en el index Y en las páginas de casos de estudio.
-// Cada bloque comprueba que sus elementos existan antes de usarlos,
-// así un mismo archivo sirve para todo el sitio sin errores.
-// =====================================================
-
-const navbar =
-  document.getElementById("navbar") || document.querySelector(".navbar");
+const navbar = document.getElementById("navbar") || document.querySelector(".navbar");
 const navMenu = document.getElementById("nav-menu");
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.querySelectorAll(".nav-link");
 const scrollTopBtn = document.getElementById("scroll-top");
 const contactForm = document.getElementById("contact-form");
 
-// Navbar Soft + botón scroll-to-top
 window.addEventListener(
   "scroll",
   () => {
@@ -27,7 +19,6 @@ window.addEventListener(
   { passive: true },
 );
 
-// Hamburger
 if (hamburger && navMenu) {
   hamburger.addEventListener("click", () => {
     navMenu.classList.toggle("active");
@@ -42,7 +33,6 @@ navLinks.forEach((link) => {
   });
 });
 
-// ACTIVE LINK (solo si la página tiene secciones y enlaces de navegación)
 const sections = document.querySelectorAll("section");
 
 if (navLinks.length && sections.length) {
@@ -66,7 +56,6 @@ if (navLinks.length && sections.length) {
   });
 }
 
-// Typing Effect (solo en el index)
 const typingText = document.querySelector(".typing-text");
 const phrases = [
   "Business Intelligence",
@@ -146,7 +135,6 @@ if (scrollTopBtn) {
   });
 }
 
-// SCROLL REVEAL ANIMATIONS
 const observerOptions = {
   threshold: 0.1,
   rootMargin: "0px 0px -50px 0px",
@@ -199,9 +187,6 @@ if (emailLink) {
   });
 }
 
-// ===============================
-// FORM HANDLING CON EMAILJS (solo en el index)
-// ===============================
 if (contactForm) {
   contactForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -240,9 +225,6 @@ if (contactForm) {
   });
 }
 
-// ===============================
-// NOTIFICATION SYSTEM
-// ===============================
 function showNotification(message, type = "success") {
   // Crear elemento de notificación
   const notification = document.createElement("div");
@@ -305,9 +287,6 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// ===============================
-// PARTÍCULAS DEL HERO (solo en el index)
-// ===============================
 const hero = document.querySelector(".hero");
 
 function createParticle() {
@@ -359,7 +338,6 @@ if (copyEmailBtn) {
 }
 
 function showToast(message) {
-  // Eliminar toast anterior si existe
   const existingToast = document.querySelector(".toast-notification");
   if (existingToast) existingToast.remove();
 
@@ -370,7 +348,6 @@ function showToast(message) {
 
   document.body.appendChild(toast);
 
-  // Animación de entrada y salida
   setTimeout(() => toast.classList.add("show"), 10);
   setTimeout(() => {
     toast.classList.remove("show");
@@ -395,18 +372,10 @@ if (hero) {
   setInterval(createParticle, 300);
 }
 
-// ===============================
-// PERFORMANCE - Imágenes con data-src
-// ===============================
-// Los navegadores modernos ya cargan en diferido con loading="lazy".
-// Este bloque solo completa el src de las imágenes que usan data-src.
 document.querySelectorAll("img[data-src]").forEach((img) => {
   img.src = img.dataset.src;
 });
 
-// ===============================
-// COPY EMAIL TO CLIPBOARD
-// ===============================
 const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
 emailLinks.forEach((link) => {
   link.addEventListener("click", (e) => {
@@ -440,9 +409,6 @@ window.addEventListener("load", () => {
   console.log("✅ Portafolio cargado correctamente");
 });
 
-// ===============================
-// CARRUSEL DE PROYECTOS (solo en el index)
-// ===============================
 const projectsCarousel = document.getElementById("projectsCarousel");
 const carouselPrev = document.getElementById("carouselPrev");
 const carouselNext = document.getElementById("carouselNext");
