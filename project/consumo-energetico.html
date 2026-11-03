@@ -56,7 +56,7 @@
         <p>
           Se procesó el dataset original (2006–2010) mediante limpieza de tipos
           numéricos, construcción de una columna de fecha/hora, y eliminación de
-          4,069 filas nulas (0.39% del total), resultando en 2,049,280 registros
+          25.979 filas con valores nulos (1,25% del total), resultando en 2,049,280 registros
           limpios. Se creó además una columna de
           <code>Other_consumption</code> para capturar el consumo no explicado
           por los 3 circuitos de sub-medición del dataset original.
@@ -84,25 +84,19 @@
         <ul class="findings-list">
           <li>
             <strong>El horario pico es 19:00–22:00</strong>, con el punto máximo
-            de consumo diario a las 20:00 — la franja más costosa del día.
+            de consumo diario a las 20:00 — una de las horas de mayor consumo observado.
           </li>
           <li>
-            <strong>Fuerte estacionalidad:</strong> el invierno incrementa el
-            consumo un 108% frente al verano, y los fines de semana consumen un
-            25% más que los días laborales.
+            <strong>Fuerte estacionalidad:</strong> se observan variaciones por estación y día de la semana. Las comparaciones deben considerar el consumo promedio y la cobertura temporal, no solo los totales.
           </li>
           <li>
             <strong
-              >El calentador/calefacción (Sub_metering_3) es el circuito
-              dominante</strong
+              >Sub_metering_3 es el mayor de los tres circuitos medidos</strong
             >, y <code>Other_consumption</code> (zonas no medidas directamente)
-            representa cerca del 70% del consumo total del hogar.
+            representa aproximadamente el 51,2% de la energía registrada; no identifica aparatos individuales.
           </li>
           <li>
-            <strong>Existen cargas fantasma:</strong> se detectó consumo
-            residual constante incluso de madrugada, cuando no debería haber
-            actividad — energía que se está desperdiciando sin que nadie la use
-            activamente.
+            <strong>Consumo nocturno residual:</strong> se observa actividad de madrugada; identificar standby o desperdicio requiere mediciones por aparato y contexto de uso.
           </li>
         </ul>
       </section>
@@ -110,11 +104,7 @@
       <section class="case-section">
         <h2>Recomendaciones</h2>
         <p>
-          El mayor potencial de ahorro está en optimizar el uso del
-          calentador/calefacción (el circuito de mayor impacto), reducir el
-          consumo en standby de aparatos que generan las cargas fantasma
-          detectadas, y desplazar el uso de electrodomésticos intensivos fuera
-          de la franja pico de 19:00 a 22:00.
+          Evaluar el uso de los circuitos de mayor consumo y medir aparatos para identificar oportunidades de ahorro. Desplazar horarios no garantiza ahorro económico sin conocer la tarifa eléctrica.
         </p>
       </section>
 
@@ -135,8 +125,7 @@
           </p>
 
           <p>
-            Se identificaron y eliminaron 4,069 filas con valores nulos (0.39%
-            del total), quedando 1,044,506 registros limpios. Se creó además la
+            Se identificaron y eliminaron 25.979 filas con valores nulos (1,25% del total), quedando 2.049.280 registros limpios, agregados posteriormente en 34.168 intervalos horarios. Se creó además la
             columna <code>Other_consumption</code> restando la suma de los 3
             circuitos de sub-medición del consumo total, para poder cuantificar
             el consumo no explicado directamente por esos circuitos.
